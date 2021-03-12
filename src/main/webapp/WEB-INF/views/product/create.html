@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create customer</title>
+</head>
+<body>
+<h1>Create customer</h1>
+<p>
+    <a href="/products">Product list</a>
+</p>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<form th:action="@{/products/create-product}" th:object="${product}" method="post">
+    <table>
+        <tr>
+            <th>Product name:</th>
+            <td><input type="text" th:field="*{name}"/></td>
+        </tr>
+        <tr>
+            <th>Price:</th>
+            <td><input type="text" th:field="*{price}"/></td>
+        </tr>
+        <tr>
+            <th>Description:</th>
+            <td><input type="text" th:field="*{description}"/></td>
+        </tr>
+        <tr>
+            <th>Date time:</th>
+            <td><input type="date" th:field="*{datetime}"/></td>
+        </tr>
+        <tr>
+            <th>Quantity:</th>
+            <td><input type="number" th:field="*{quantity}"/></td>
+        </tr>
+        <tr>
+            <th>Category:</th>
+            <td>
+                <select th:field="*{category}">
+                    <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Create product"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

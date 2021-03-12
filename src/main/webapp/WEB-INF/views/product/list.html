@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+</head>
+<body>
+<a href="/products/create-product"><h4 align="center">Create new product</h4></a>
+<h1 align="center">Products</h1>
+<form action="/products/search" th:align="center">
+    Search by name product:
+    <input name="s" type="search"/>
+    <input type="submit" value="Search"/>
+</form>
+<br/>
+<table border="1" align="center">
+    <tr style="color: blue">
+        <th>ID</th>
+        <th>Name product</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Datetime</th>
+        <th>Quantity</th>
+        <th>Category</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <th:block th:each="p : ${products}">
+        <tr>
+            <td th:text="${p.id}"></td>
+            <td th:text="${p.name}"></td>
+            <td th:text="${p.price}" style="color: red"></td>
+            <td th:text="${p.description}"></td>
+            <td th:text="${p.datetime}"></td>
+            <td th:text="${p.quantity}" style="color: rosybrown"></td>
+            <td th:text="${p.category.name}" style="color: dodgerblue"></td>
+            <td><a th:href="@{/products/edit-product/__${p.id}__ }">Edit</a></td>
+            <td><a th:href="@{/products/delete-product/__${p.id}__ }">Del</a></td>
+        </tr>
+    </th:block>
+</table>
+<div align="center">
+    <a th:href="@{'/products'(page=${products.number - 1})}" th:if="${products.hasPrevious()}">Previous</a>
+    <span th:text="${products.number + 1}"></span>/<span th:text="${products.totalPages}"></span>
+    <a th:href="@{'/products'(page=${products.number + 1})}" th:if="${products.hasNext()}">Next</a>
+</div>
+</body>
+</html>
